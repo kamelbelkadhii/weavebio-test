@@ -20,15 +20,13 @@ The ingest_data function performs the following steps:
 
 The validate_data function is a helper function that checks if a key exists in a dictionary and returns its value if it does, or None if it doesn't.
 
-The code also sets up a scheduler using the apscheduler library to run the ingest_data function every hour.
+The code also sets up a scheduler using the apscheduler library to run the ingest_data function every hour in the V1 file.
 
 Below is the graph architecture (There are some displaying issues because of neo4j software.)
 ![graph](https://user-images.githubusercontent.com/88763295/224572254-4847fd23-052c-498a-b76a-4dbcd8e4790e.png)
 
 
-If more time was available, airflow could be used to schedule and monitor the data ingestion process. Airflow is an open-source platform to programmatically author, schedule and monitor workflows. It can be used to create complex data pipelines that can handle dependencies, retry failed tasks, and provide alerts and notifications in case of errors.
-
-To use Airflow, the ingest_data function could be refactored into a PythonOperator and added to a DAG (Directed Acyclic Graph). The DAG would define the dependencies between tasks and schedule the execution of the DAG at a specific interval. Airflow provides a web interface to monitor the status of the DAG and its tasks and provides a rich set of tools to handle errors, notifications, and retries. Another approach for the refactoring is to use two different PythonOperators: extract_data (E), transform_and_load(TL).
+I used Airfflow in the file V2, the ingest_data function is used into a PythonOperator and added to a DAG (Directed Acyclic Graph). The DAG defines the dependencies between tasks and schedule the execution of the DAG at a specific interval. Another approach for refactoring is to use two different PythonOperators: extract_data (E), transform_and_load(TL).
 
 
 To make the code really scalable, I would consider the following improvements:
@@ -63,5 +61,5 @@ his part can also be covered by using Airflow
   
   NOTE: You need to change neo4j password (the default one is neo4j but it won't work
 
-4- run the script using python script.py
+4- run the script using python script-v1.py or script-v2.py (first one using apscheduler and the second one using airflow)
 
